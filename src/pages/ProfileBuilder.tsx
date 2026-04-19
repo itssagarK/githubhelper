@@ -990,19 +990,19 @@ jobs:
   // ═══════════════════════════════════════════════════════════════════════
   return (
     <div className="min-h-screen bg-[#080810] text-[#c9d1d9] font-inter">
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-8">
+      <div className="max-w-[1800px] mx-auto px-3 sm:px-4 lg:px-6 py-4 lg:py-8">
 
         {/* ─── Title ──────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-6 lg:mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-1 h-8 bg-[#ff5e1a] rounded-full" />
-            <h1 className="text-3xl font-bold text-white tracking-tight">GitHub Profile Builder</h1>
+            <div className="w-1 h-6 lg:h-8 bg-[#ff5e1a] rounded-full" />
+            <h1 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">GitHub Profile Builder</h1>
           </div>
-          <p className="text-[#8b949e] text-lg">Build your perfect GitHub profile README with live preview</p>
+          <p className="text-[#8b949e] text-base lg:text-lg">Build your perfect GitHub profile README with live preview</p>
         </div>
 
         {/* ─── Tab bar: Builder | Templates ───────────────────────────── */}
-        <div className="flex gap-2 mb-6">
+        <div className="flex flex-wrap gap-2 mb-6">
           {(['builder', 'templates'] as const).map(tab => (
             <button
               key={tab}
@@ -1022,9 +1022,9 @@ jobs:
         {/* ═══ TEMPLATES TAB ═════════════════════════════════════════════ */}
         {activeTab === 'templates' && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
               {PROFILE_TEMPLATES.map(t => (
-                <div key={t.id} className="bg-[#0e0e1c] border border-[rgba(255,255,255,0.07)] rounded-xl p-5 hover:border-[#ff5e1a]/30 transition-all group">
+                <div key={t.id} className="bg-[#0e0e1c] border border-[rgba(255,255,255,0.07)] rounded-xl p-4 sm:p-5 hover:border-[#ff5e1a]/30 transition-all group">
                   <div className="flex items-center gap-2 mb-2">
                     <Sparkles className="w-4 h-4 text-[#ff5e1a]" />
                     <h3 className="font-bold text-white text-sm">{t.name}</h3>
@@ -1054,21 +1054,21 @@ jobs:
         {activeTab === 'builder' && (
           <>
             {/* ─── Username Input ──────────────────────────────────────── */}
-            <Card hover={false} className="mb-6 p-1 bg-[#0e0e1c] border-[rgba(255,255,255,0.07)] shadow-2xl">
+            <Card hover={false} className="mb-4 sm:mb-6 p-1 bg-[#0e0e1c] border-[rgba(255,255,255,0.07)] shadow-2xl">
               <div className="relative group">
-                <User className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8b949e] group-focus-within:text-[#ff5e1a] transition-colors" />
+                <User className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8b949e] group-focus-within:text-[#ff5e1a] transition-colors" />
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter your GitHub username..."
-                  className="w-full pl-14 pr-6 py-5 bg-transparent text-xl text-white placeholder:text-[#484f58] outline-none transition-all"
+                  className="w-full pl-12 sm:pl-14 pr-4 sm:pr-6 py-4 sm:py-5 bg-transparent text-lg sm:text-xl text-white placeholder:text-[#484f58] outline-none transition-all"
                 />
               </div>
             </Card>
 
             {/* ─── Quick Presets ────────────────────────────────────────── */}
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
               {PROFILE_TEMPLATES.map(t => (
                 <button
                   key={t.id}
@@ -1081,19 +1081,19 @@ jobs:
             </div>
 
             {/* ─── Three Column Layout ─────────────────────────────────── */}
-            <div className="grid grid-cols-1 lg:grid-cols-10 gap-6">
+            <div className="grid grid-cols-1 xl:grid-cols-12 gap-4">
 
               {/* ═══ LEFT: Widget Configurator ════════════════════════════ */}
-              <div className="lg:col-span-3 space-y-4">
+              <div className="xl:col-span-2 space-y-3 order-2 xl:order-1">
 
-                {/* Category filter */}
+                {/* Category filter - improved scrolling */}
                 <div className="flex flex-wrap gap-1.5 mb-2">
                   {categories.map(cat => (
                     <button
                       key={cat.id}
                       onClick={() => setSidebarCategory(cat.id)}
                       className={cn(
-                        "px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-all",
+                        "px-2.5 py-1.5 rounded-lg text-[10px] font-semibold transition-all whitespace-nowrap",
                         sidebarCategory === cat.id
                           ? "bg-[#ff5e1a] text-white"
                           : "bg-[#0e0e1c] text-[#8b949e] hover:text-white border border-[rgba(255,255,255,0.07)]"
@@ -1129,7 +1129,7 @@ jobs:
                   <AnimatePresence>
                     {activeWidget === 'header' && headerEnabled && (
                       <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                        <div className="p-4 mt-1 bg-[#121225] border border-[rgba(255,255,255,0.07)] rounded-xl space-y-4 max-h-[400px] overflow-y-auto custom-scrollbar">
+                        <div className="p-4 mt-1 bg-[#121225] border border-[rgba(255,255,255,0.07)] rounded-xl space-y-4 max-h-[50vh] overflow-y-auto custom-scrollbar">
                           <p className="text-[10px] text-[#ff5e1a] font-bold uppercase">Capsule Render Banner</p>
                           <Select label="Type" value={headerOptions.capsuleType} onChange={v => updateHeader('capsuleType', v)} options={CAPSULE_TYPES} />
                           <TextInput label="Color" value={headerOptions.capsuleColor} onChange={v => updateHeader('capsuleColor', v)} placeholder="gradient, auto, hex" />
@@ -1179,7 +1179,7 @@ jobs:
 
                 {/* ─── Widget List ─────────────────────────────────────── */}
                 <SectionLabel icon={<Settings className="w-4 h-4" />} label="Widgets" />
-                <div className="space-y-3 max-h-[calc(100vh-380px)] overflow-y-auto custom-scrollbar pr-1">
+                <div className="space-y-3 max-h-[60vh] overflow-y-auto custom-scrollbar pr-1">
                   {filteredWidgets.map(widget => (
                     <WidgetCard
                       key={widget.id}
@@ -1196,9 +1196,16 @@ jobs:
               </div>
 
               {/* ═══ CENTER: Live Preview ═════════════════════════════════ */}
-              <div className="lg:col-span-4 space-y-4">
-                <div className="flex items-center justify-between mb-2">
-                  <SectionLabel icon={<Eye className="w-4 h-4" />} label="Live Preview" />
+              <div className="xl:col-span-7 space-y-3 order-1 xl:order-2">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-1">
+                  {/* Highlighted Live Preview label - MORE PROMINENT */}
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2 bg-gradient-to-r from-[#ff5e1a]/20 to-[#ff5e1a]/5 border-2 border-[#ff5e1a]/50 px-4 py-2 rounded-xl shadow-lg shadow-[#ff5e1a]/15">
+                      <Eye className="w-5 h-5 text-[#ff5e1a]" />
+                      <span className="text-base font-bold text-white tracking-wide">Live Preview</span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f] animate-pulse shadow-[0_0_8px_rgba(39,201,63,0.6)]" title="Live" />
+                    </div>
+                  </div>
                   <div className="flex items-center gap-1.5">
                     {/* Device mode */}
                     {[
@@ -1226,33 +1233,36 @@ jobs:
                   </div>
                 </div>
 
-                {/* GitHub-style frame */}
-                <div className="rounded-xl overflow-hidden border border-[rgba(255,255,255,0.07)] shadow-2xl">
-                  {/* Browser chrome */}
-                  <div className="bg-[#161b22] px-4 py-2.5 flex items-center gap-3 border-b border-[#30363d]">
+                {/* GitHub-style frame — ENHANCED glowing focal point */}
+                <div className="rounded-2xl overflow-hidden border-2 border-[#ff5e1a]/40 shadow-[0_0_0_1px_rgba(255,94,26,0.2),0_0_80px_rgba(255,94,26,0.2),0_0_120px_rgba(255,94,26,0.1),0_25px_80px_rgba(0,0,0,0.6)] ring-2 ring-[#ff5e1a]/20 bg-[#0d1117] relative flex flex-col h-full">
+                  {/* Corner accent highlights */}
+                  <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-[#ff5e1a]/30 to-transparent rounded-bl-2xl pointer-events-none" />
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-[#ff5e1a]/30 to-transparent rounded-br-2xl pointer-events-none" />
+                  {/* Browser chrome - fills width, shrinks to fit content */}
+                  <div className="bg-[#161b22] px-4 py-2.5 flex items-center gap-3 border-b border-[#ff5e1a]/15 shrink-0">
                     <div className="flex gap-1.5">
                       <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
                       <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
                       <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
                     </div>
-                    <div className="flex-1 bg-[#0d1117] rounded-md px-3 py-1 text-[11px] text-[#8b949e] font-mono truncate">
+                    <div className="flex-1 bg-[#0d1117] border border-[rgba(255,94,26,0.12)] rounded-md px-3 py-1 text-[11px] text-[#8b949e] font-mono truncate">
                       github.com/{user}
                     </div>
                   </div>
 
-                  {/* Preview content */}
+                  {/* Preview content - flex-1 to fill remaining space, handles overflow */}
                   <div
-                    className="bg-[#0d1117] p-6 min-h-[500px] overflow-auto custom-scrollbar flex justify-center"
-                    style={{ maxHeight: '70vh' }}
+                    className="flex-1 bg-[#0d1117] p-4 sm:p-6 overflow-auto custom-scrollbar"
+                    style={{ maxHeight: 'calc(100vh - 200px)' }}
                   >
                     <div
                       style={{
-                        width: previewWidth,
-                        maxWidth: '100%',
-                        transform: `scale(${zoom / 100})`,
+                        width: zoom > 100 ? previewWidth : undefined,
+                        maxWidth: zoom <= 100 ? '100%' : undefined,
+                        transform: zoom <= 100 ? `scale(${zoom / 100})` : undefined,
                         transformOrigin: 'top center',
                       }}
-                      className="space-y-5 flex flex-col items-center"
+                      className={zoom > 100 ? "inline-block" : "mx-auto space-y-5 flex flex-col items-center"}
                     >
                       {!username ? (
                         <div className="flex flex-col items-center justify-center h-full text-center mt-20">
@@ -1337,7 +1347,7 @@ jobs:
               </div>
 
               {/* ═══ RIGHT: Markdown Output ═══════════════════════════════ */}
-              <div className="lg:col-span-3 space-y-4">
+              <div className="xl:col-span-3 space-y-3 order-3">
                 <div className="flex items-center justify-between mb-2">
                   <SectionLabel icon={<Code className="w-4 h-4" />} label="Markdown Code" />
                   <div className="flex items-center gap-1.5">
@@ -1353,7 +1363,7 @@ jobs:
                   </div>
                 </div>
 
-                <Card hover={false} className="bg-[#0e0e1c] border-[rgba(255,255,255,0.07)] p-0 overflow-hidden flex flex-col" style={{ height: 'calc(70vh + 36px)' }}>
+                <Card hover={false} className="bg-[#0e0e1c] border-[rgba(255,255,255,0.07)] p-0 overflow-hidden flex flex-col" style={{ minHeight: '500px', maxHeight: 'calc(85vh - 100px)' }}>
                   {/* Code window chrome */}
                   <div className="p-3 bg-[#161b22]/50 border-b border-[rgba(255,255,255,0.07)] flex items-center justify-between shrink-0">
                     <div className="flex items-center gap-2">
