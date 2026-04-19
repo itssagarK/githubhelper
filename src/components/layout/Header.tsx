@@ -34,6 +34,12 @@ export default function Header({ view, setView }: HeaderProps) {
             >
               Converter
             </button>
+            <button
+              onClick={() => setView('profile-builder')}
+              className={`px-3 py-1.5 text-sm rounded-md transition-colors ${view === 'profile-builder' ? 'bg-[#21262d] text-[#f0f6fc]' : 'text-[#8b949e] hover:bg-[#21262d] hover:text-[#f0f6fc]'}`}
+            >
+              Profile Builder
+            </button>
           </nav>
         </div>
 
