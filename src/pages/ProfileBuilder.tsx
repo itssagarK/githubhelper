@@ -30,7 +30,7 @@ const CAPSULE_ANIMATIONS = ['fadeIn', 'scaleIn', 'blink', 'blinking', 'twinkling
 const COLOR_PRESETS = [
   { name: 'gray', hex: '#6c757d' }, { name: 'black', hex: '#000000' },
   { name: 'red', hex: '#dc3545' }, { name: 'blue', hex: '#0d6efd' },
-  { name: 'green', hex: '#198754' }, { name: 'orange', hex: '#ff5e1a' },
+  { name: 'green', hex: '#198754' }, { name: 'orange', hex: '[var(--accent-primary)]' },
   { name: 'purple', hex: '#6f42c1' }, { name: 'cyan', hex: '#00d4ff' }
 ];
 
@@ -168,7 +168,7 @@ function Toggle({ checked, onChange, size = 'md' }: { checked: boolean; onChange
   return (
     <div
       onClick={(e) => { e.stopPropagation(); onChange(!checked); }}
-      className={cn(w, h, "rounded-full relative transition-all duration-300 cursor-pointer shrink-0", checked ? "bg-[#ff5e1a]" : "bg-[#30363d]")}
+      className={cn(w, h, "rounded-full relative transition-all duration-300 cursor-pointer shrink-0", checked ? "bg-[[var(--accent-primary)]]" : "bg-[[var(--border-default)]]")}
     >
       <div className={cn("absolute top-0.5 bg-white rounded-full transition-all duration-300", dot, checked ? onPos : "left-1")} />
     </div>
@@ -179,8 +179,8 @@ function Toggle({ checked, onChange, size = 'md' }: { checked: boolean; onChange
 function SectionLabel({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
     <div className="flex items-center gap-2 mb-4 px-1">
-      <span className="text-[#ff5e1a]">{icon}</span>
-      <h2 className="text-sm font-bold uppercase tracking-widest text-[#8b949e]">{label}</h2>
+      <span className="text-[[var(--accent-primary)]]">{icon}</span>
+      <h2 className="text-sm font-bold uppercase tracking-widest text-[[var(--text-secondary)]]">{label}</h2>
     </div>
   );
 }
@@ -209,11 +209,11 @@ function ColorPresetPicker({ value, onChange, colors = COLOR_PRESETS }: { value:
 function Select({ value, onChange, options, label }: { value: string; onChange: (v: string) => void; options: string[]; label?: string }) {
   return (
     <div className="space-y-1.5">
-      {label && <label className="text-xs font-medium text-[#8b949e]">{label}</label>}
+      {label && <label className="text-xs font-medium text-[[var(--text-secondary)]]">{label}</label>}
       <select
         value={value}
         onChange={e => onChange(e.target.value)}
-        className="w-full bg-[#080810] border border-[#30363d] rounded-lg px-3 py-2 text-sm text-[#c9d1d9] outline-none focus:border-[#ff5e1a]/50 transition-colors"
+        className="w-full bg-[[var(--bg-deep)]] border border-[[var(--border-default)]] rounded-lg px-3 py-2 text-sm text-[[var(--text-primary)]] outline-none focus:border-[[var(--accent-primary)]]/50 transition-colors"
       >
         {options.map(o => <option key={o} value={o}>{o}</option>)}
       </select>
@@ -225,15 +225,15 @@ function Select({ value, onChange, options, label }: { value: string; onChange: 
 function TextInput({ value, onChange, label, placeholder, note }: { value: string; onChange: (v: string) => void; label?: string; placeholder?: string; note?: string }) {
   return (
     <div className="space-y-1.5">
-      {label && <label className="text-xs font-medium text-[#8b949e]">{label}</label>}
+      {label && <label className="text-xs font-medium text-[[var(--text-secondary)]]">{label}</label>}
       <input
         type="text"
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-[#080810] border border-[#30363d] rounded-lg px-3 py-2 text-sm text-[#c9d1d9] outline-none focus:border-[#ff5e1a]/50 transition-colors placeholder:text-[#484f58]"
+        className="w-full bg-[[var(--bg-deep)]] border border-[[var(--border-default)]] rounded-lg px-3 py-2 text-sm text-[[var(--text-primary)]] outline-none focus:border-[[var(--accent-primary)]]/50 transition-colors placeholder:text-[[var(--text-muted)]]"
       />
-      {note && <p className="text-[9px] text-[#484f58]">{note}</p>}
+      {note && <p className="text-[9px] text-[[var(--text-muted)]]">{note}</p>}
     </div>
   );
 }
@@ -242,14 +242,14 @@ function TextInput({ value, onChange, label, placeholder, note }: { value: strin
 function Slider({ value, onChange, min, max, label }: { value: number; onChange: (v: number) => void; min: number; max: number; label?: string }) {
   return (
     <div className="space-y-1.5">
-      {label && <label className="text-xs font-medium text-[#8b949e]">{label}: {value}</label>}
+      {label && <label className="text-xs font-medium text-[[var(--text-secondary)]]">{label}: {value}</label>}
       <input
         type="range"
         min={min}
         max={max}
         value={value}
         onChange={e => onChange(Number(e.target.value))}
-        className="w-full accent-[#ff5e1a] h-1.5"
+        className="w-full accent-[[var(--accent-primary)]] h-1.5"
       />
     </div>
   );
@@ -261,14 +261,14 @@ function CodeBlock({ code, label }: { code: string; label?: string }) {
   const copy = () => { navigator.clipboard.writeText(code); setC(true); setTimeout(() => setC(false), 2000); };
   return (
     <div className="space-y-1.5">
-      {label && <label className="text-xs font-medium text-[#8b949e]">{label}</label>}
+      {label && <label className="text-xs font-medium text-[[var(--text-secondary)]]">{label}</label>}
       <div className="relative group">
-        <pre className="bg-[#080810] border border-[#30363d] rounded-lg p-3 text-xs font-mono text-[#8b949e] overflow-x-auto custom-scrollbar max-h-60">
+        <pre className="bg-[[var(--bg-deep)]] border border-[[var(--border-default)]] rounded-lg p-3 text-xs font-mono text-[[var(--text-secondary)]] overflow-x-auto custom-scrollbar max-h-60">
           {code}
         </pre>
         <button
           onClick={copy}
-          className="absolute top-2 right-2 p-1.5 rounded-md bg-[#21262d] hover:bg-[#30363d] text-[#8b949e] opacity-0 group-hover:opacity-100 transition-all"
+          className="absolute top-2 right-2 p-1.5 rounded-md bg-[[var(--bg-surface)]] hover:bg-[[var(--border-default)]] text-[[var(--text-secondary)]] opacity-0 group-hover:opacity-100 transition-all"
         >
           {c ? <Check className="w-3 h-3 text-green-400" /> : <Copy className="w-3 h-3" />}
         </button>
@@ -292,20 +292,20 @@ function WidgetCard({
         onClick={onClick}
         className={cn(
           "flex items-center justify-between p-3.5 rounded-xl border cursor-pointer transition-all duration-300",
-          enabled ? "bg-[#161b33] border-[#ff5e1a]/30" : "bg-[#0e0e1c] border-[rgba(255,255,255,0.07)]",
-          "hover:shadow-[0_0_20px_rgba(255,94,26,0.1)] hover:border-[#ff5e1a]/20"
+          enabled ? "bg-[#161b33] border-[[var(--accent-primary)]]/30" : "bg-[#0e0e1c] border-[rgba(255,255,255,0.07)]",
+          "hover:shadow-[0_0_20px_rgba(255,94,26,0.1)] hover:border-[[var(--accent-primary)]]/20"
         )}
       >
         <div className="flex items-center gap-3 min-w-0">
           <div className={cn(
             "w-9 h-9 rounded-lg flex items-center justify-center transition-colors shrink-0 text-sm",
-            enabled ? "bg-[#ff5e1a] text-white" : "bg-[#21262d] text-[#8b949e]"
+            enabled ? "bg-[[var(--accent-primary)]] text-white" : "bg-[[var(--bg-surface)]] text-[[var(--text-secondary)]]"
           )}>
             {widget.icon}
           </div>
           <div className="min-w-0">
             <h3 className="font-semibold text-white text-sm truncate">{widget.name}</h3>
-            <p className="text-[10px] text-[#8b949e] truncate">{widget.description}</p>
+            <p className="text-[10px] text-[[var(--text-secondary)]] truncate">{widget.description}</p>
           </div>
         </div>
         <Toggle checked={enabled} onChange={onToggle} />
@@ -638,7 +638,7 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
               {['hide_border', 'count_private', 'show_icons'].map(key => (
                 <label key={key} className="flex items-center gap-2 cursor-pointer">
                   <Toggle size="sm" checked={o[key]} onChange={v => updateOption(id, key, v)} />
-                  <span className="text-xs text-[#8b949e] capitalize">{key.replace(/_/g, ' ')}</span>
+                  <span className="text-xs text-[[var(--text-secondary)]] capitalize">{key.replace(/_/g, ' ')}</span>
                 </label>
               ))}
             </div>
@@ -651,7 +651,7 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
             <Select label="Layout" value={o.layout} onChange={v => updateOption(id, 'layout', v)} options={['compact', 'normal', 'donut', 'donut-vertical', 'pie']} />
             <label className="flex items-center gap-2 cursor-pointer">
               <Toggle size="sm" checked={o.hide_border} onChange={v => updateOption(id, 'hide_border', v)} />
-              <span className="text-xs text-[#8b949e]">Hide border</span>
+              <span className="text-xs text-[[var(--text-secondary)]]">Hide border</span>
             </label>
           </>
         );
@@ -661,7 +661,7 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
             <Select label="Theme" value={o.theme} onChange={v => updateOption(id, 'theme', v)} options={THEMES} />
             <label className="flex items-center gap-2 cursor-pointer">
               <Toggle size="sm" checked={o.hide_border} onChange={v => updateOption(id, 'hide_border', v)} />
-              <span className="text-xs text-[#8b949e]">Hide border</span>
+              <span className="text-xs text-[[var(--text-secondary)]]">Hide border</span>
             </label>
           </>
         );
@@ -672,11 +672,11 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
             <div className="grid grid-cols-2 gap-3">
               <label className="flex items-center gap-2 cursor-pointer">
                 <Toggle size="sm" checked={o.no_frame} onChange={v => updateOption(id, 'no_frame', v)} />
-                <span className="text-xs text-[#8b949e]">No frame</span>
+                <span className="text-xs text-[[var(--text-secondary)]]">No frame</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
                 <Toggle size="sm" checked={o.no_bg} onChange={v => updateOption(id, 'no_bg', v)} />
-                <span className="text-xs text-[#8b949e]">No background</span>
+                <span className="text-xs text-[[var(--text-secondary)]]">No background</span>
               </label>
             </div>
             <Select label="Rows" value={String(o.row)} onChange={v => updateOption(id, 'row', Number(v))} options={['1', '2', '3']} />
@@ -688,11 +688,11 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
           <>
             <TextInput label="Left text" value={o.leftText} onChange={v => updateOption(id, 'leftText', v)} placeholder="visitors" />
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#8b949e]">Left color</label>
+              <label className="text-xs font-medium text-[[var(--text-secondary)]]">Left color</label>
               <ColorPresetPicker value={o.leftColor} onChange={v => updateOption(id, 'leftColor', v)} />
             </div>
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#8b949e]">Right color</label>
+              <label className="text-xs font-medium text-[[var(--text-secondary)]]">Right color</label>
               <ColorPresetPicker value={o.rightColor} onChange={v => updateOption(id, 'rightColor', v)} />
             </div>
             <Select label="Style" value={o.style} onChange={v => updateOption(id, 'style', v)} options={['flat', 'flat-square', 'for-the-badge', 'plastic']} />
@@ -702,22 +702,22 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
         return (
           <>
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#8b949e]">Lines (separate with ;)</label>
+              <label className="text-xs font-medium text-[[var(--text-secondary)]]">Lines (separate with ;)</label>
               <textarea
                 value={o.lines}
                 onChange={e => updateOption(id, 'lines', e.target.value)}
                 placeholder="Hi 👋;Developer;Open Source"
                 rows={3}
-                className="w-full bg-[#080810] border border-[#30363d] rounded-lg px-3 py-2 text-sm text-[#c9d1d9] outline-none focus:border-[#ff5e1a]/50 resize-none"
+                className="w-full bg-[[var(--bg-deep)]] border border-[[var(--border-default)]] rounded-lg px-3 py-2 text-sm text-[[var(--text-primary)]] outline-none focus:border-[[var(--accent-primary)]]/50 resize-none"
               />
-              <p className="text-[9px] text-[#484f58]">Use {'{username}'} for dynamic name. Max 5 lines.</p>
+              <p className="text-[9px] text-[[var(--text-muted)]]">Use {'{username}'} for dynamic name. Max 5 lines.</p>
             </div>
             <Select label="Font" value={o.font} onChange={v => updateOption(id, 'font', v)} options={FONTS} />
             <Slider label="Size" value={o.size} onChange={v => updateOption(id, 'size', v)} min={14} max={32} />
             <TextInput label="Color (hex)" value={o.color} onChange={v => updateOption(id, 'color', v)} placeholder="F75C7E" />
             <label className="flex items-center gap-2 cursor-pointer">
               <Toggle size="sm" checked={o.center} onChange={v => updateOption(id, 'center', v)} />
-              <span className="text-xs text-[#8b949e]">Center align</span>
+              <span className="text-xs text-[[var(--text-secondary)]]">Center align</span>
             </label>
             <Slider label="Width" value={o.width} onChange={v => updateOption(id, 'width', v)} min={300} max={800} />
             <Select label="Pause" value={String(o.pause)} onChange={v => updateOption(id, 'pause', Number(v))} options={['500', '1000', '2000', '3000']} />
@@ -734,7 +734,7 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
                 if (!filtered.length) return null;
                 return (
                   <div key={cat}>
-                    <p className="text-[10px] text-[#ff5e1a] font-bold uppercase mb-1.5">{cat}</p>
+                    <p className="text-[10px] text-[[var(--accent-primary)]] font-bold uppercase mb-1.5">{cat}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {filtered.map(icon => {
                         const selected = selectedIcons.includes(icon);
@@ -750,8 +750,8 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
                             className={cn(
                               "px-2 py-1 rounded text-[10px] font-mono border transition-all",
                               selected
-                                ? "bg-[#ff5e1a]/20 border-[#ff5e1a]/50 text-[#ff5e1a]"
-                                : "bg-[#0e0e1c] border-[#30363d] text-[#8b949e] hover:border-[#484f58]"
+                                ? "bg-[[var(--accent-primary)]]/20 border-[[var(--accent-primary)]]/50 text-[[var(--accent-primary)]]"
+                                : "bg-[#0e0e1c] border-[[var(--border-default)]] text-[[var(--text-secondary)]] hover:border-[[var(--text-muted)]]"
                             )}
                           >
                             {icon}
@@ -765,10 +765,10 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
             </div>
             {selectedIcons.length > 0 && (
               <div className="space-y-1.5">
-                <label className="text-xs font-medium text-[#8b949e]">Selected ({selectedIcons.length})</label>
+                <label className="text-xs font-medium text-[[var(--text-secondary)]]">Selected ({selectedIcons.length})</label>
                 <div className="flex flex-wrap gap-1">
                   {selectedIcons.map(icon => (
-                    <span key={icon} className="flex items-center gap-1 px-2 py-0.5 bg-[#ff5e1a]/10 border border-[#ff5e1a]/30 rounded text-[10px] text-[#ff5e1a]">
+                    <span key={icon} className="flex items-center gap-1 px-2 py-0.5 bg-[[var(--accent-primary)]]/10 border border-[[var(--accent-primary)]]/30 rounded text-[10px] text-[[var(--accent-primary)]]">
                       {icon}
                       <X className="w-2.5 h-2.5 cursor-pointer hover:text-white" onClick={() => updateOption(id, 'icons', selectedIcons.filter(i => i !== icon))} />
                     </span>
@@ -779,7 +779,7 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
             <div className="flex items-center gap-3">
               <label className="flex items-center gap-2 cursor-pointer">
                 <Toggle size="sm" checked={o.theme === 'dark'} onChange={v => updateOption(id, 'theme', v ? 'dark' : 'light')} />
-                <span className="text-xs text-[#8b949e]">Dark theme</span>
+                <span className="text-xs text-[[var(--text-secondary)]]">Dark theme</span>
               </label>
             </div>
             <Slider label="Per line" value={o.perline} onChange={v => updateOption(id, 'perline', v)} min={5} max={20} />
@@ -794,11 +794,11 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
             <div className="grid grid-cols-2 gap-3">
               <label className="flex items-center gap-2 cursor-pointer">
                 <Toggle size="sm" checked={o.hide_border} onChange={v => updateOption(id, 'hide_border', v)} />
-                <span className="text-xs text-[#8b949e]">Hide border</span>
+                <span className="text-xs text-[[var(--text-secondary)]]">Hide border</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
                 <Toggle size="sm" checked={o.area} onChange={v => updateOption(id, 'area', v)} />
-                <span className="text-xs text-[#8b949e]">Area fill</span>
+                <span className="text-xs text-[[var(--text-secondary)]]">Area fill</span>
               </label>
             </div>
           </>
@@ -818,7 +818,7 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
             <Select label="Layout" value={o.layout} onChange={v => updateOption(id, 'layout', v)} options={['default', 'compact']} />
             <label className="flex items-center gap-2 cursor-pointer">
               <Toggle size="sm" checked={o.hide_border} onChange={v => updateOption(id, 'hide_border', v)} />
-              <span className="text-xs text-[#8b949e]">Hide border</span>
+              <span className="text-xs text-[[var(--text-secondary)]]">Hide border</span>
             </label>
             <Slider label="Languages count" value={o.langs_count} onChange={v => updateOption(id, 'langs_count', v)} min={5} max={15} />
           </>
@@ -826,11 +826,11 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
       case 'snake':
         return (
           <div className="space-y-4">
-            <div className="p-3 bg-[#ff5e1a]/5 border border-[#ff5e1a]/20 rounded-lg">
-              <p className="text-xs text-[#c9d1d9] mb-2"><span className="text-[#ff5e1a] font-bold">⚡ Note:</span> This widget requires GitHub Actions to generate.</p>
-              <ol className="text-[10px] text-[#8b949e] space-y-1 list-decimal list-inside">
-                <li>Create <code className="text-[#ff5e1a]">.github/workflows/</code> folder in profile repo</li>
-                <li>Create <code className="text-[#ff5e1a]">snake.yml</code> with workflow below</li>
+            <div className="p-3 bg-[[var(--accent-primary)]]/5 border border-[[var(--accent-primary)]]/20 rounded-lg">
+              <p className="text-xs text-[[var(--text-primary)]] mb-2"><span className="text-[[var(--accent-primary)]] font-bold">⚡ Note:</span> This widget requires GitHub Actions to generate.</p>
+              <ol className="text-[10px] text-[[var(--text-secondary)]] space-y-1 list-decimal list-inside">
+                <li>Create <code className="text-[[var(--accent-primary)]]">.github/workflows/</code> folder in profile repo</li>
+                <li>Create <code className="text-[[var(--accent-primary)]]">snake.yml</code> with workflow below</li>
                 <li>Enable GitHub Actions in your repo</li>
                 <li>Add the image markdown to your README</li>
               </ol>
@@ -843,11 +843,11 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
         return (
           <div className="space-y-4">
             <div className="p-3 bg-[#1DB954]/10 border border-[#1DB954]/20 rounded-lg">
-              <p className="text-xs text-[#c9d1d9] mb-2"><span className="text-[#1DB954] font-bold">🎵 Spotify Integration</span></p>
-              <p className="text-[10px] text-[#8b949e] mb-3">Display your current Spotify track on your GitHub profile. Requires backend setup.</p>
+              <p className="text-xs text-[[var(--text-primary)]] mb-2"><span className="text-[#1DB954] font-bold">🎵 Spotify Integration</span></p>
+              <p className="text-[10px] text-[[var(--text-secondary)]] mb-3">Display your current Spotify track on your GitHub profile. Requires backend setup.</p>
               <div className="space-y-2">
-                <p className="text-[10px] text-[#ff5e1a] font-bold">Recommended: novatorem (free hosting)</p>
-                <ol className="text-[10px] text-[#8b949e] space-y-1 list-decimal list-inside">
+                <p className="text-[10px] text-[[var(--accent-primary)]] font-bold">Recommended: novatorem (free hosting)</p>
+                <ol className="text-[10px] text-[[var(--text-secondary)]] space-y-1 list-decimal list-inside">
                   <li>Fork <a href="https://github.com/novatorem/novatorem" target="_blank" className="text-[#58a6ff] underline">novatorem/novatorem</a></li>
                   <li>Deploy to Vercel with Spotify API credentials</li>
                   <li>Add the image to your README</li>
@@ -863,7 +863,7 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
             <Select label="Theme" value={o.theme} onChange={v => updateOption(id, 'theme', v)} options={STREAK_ALT_THEMES} />
             <label className="flex items-center gap-2 cursor-pointer">
               <Toggle size="sm" checked={o.hide_border} onChange={v => updateOption(id, 'hide_border', v)} />
-              <span className="text-xs text-[#8b949e]">Hide border</span>
+              <span className="text-xs text-[[var(--text-secondary)]]">Hide border</span>
             </label>
             <Slider label="Border radius" value={o.border_radius} onChange={v => updateOption(id, 'border_radius', v)} min={0} max={20} />
             <Select label="Date format" value={o.date_format} onChange={v => updateOption(id, 'date_format', v)} options={['M j[, Y]', 'j M[, Y]', 'M j', 'j M', 'd F Y', 'd.m.Y']} />
@@ -896,10 +896,10 @@ export default function ProfileBuilder({ addons = [] }: ProfileBuilderProps) {
       case 'metrics':
         return (
           <div className="space-y-4">
-            <div className="p-3 bg-[#ff5e1a]/5 border border-[#ff5e1a]/20 rounded-lg">
-              <p className="text-xs text-[#c9d1d9] mb-2"><span className="text-[#ff5e1a] font-bold">📉 GitHub Metrics</span></p>
-              <p className="text-[10px] text-[#8b949e] mb-3">Advanced GitHub metrics showing habits, achievements, and repository analysis. Requires GitHub Actions.</p>
-              <ol className="text-[10px] text-[#8b949e] space-y-1 list-decimal list-inside">
+            <div className="p-3 bg-[[var(--accent-primary)]]/5 border border-[[var(--accent-primary)]]/20 rounded-lg">
+              <p className="text-xs text-[[var(--text-primary)]] mb-2"><span className="text-[[var(--accent-primary)]] font-bold">📉 GitHub Metrics</span></p>
+              <p className="text-[10px] text-[[var(--text-secondary)]] mb-3">Advanced GitHub metrics showing habits, achievements, and repository analysis. Requires GitHub Actions.</p>
+              <ol className="text-[10px] text-[[var(--text-secondary)]] space-y-1 list-decimal list-inside">
                 <li>Create a GitHub Actions workflow</li>
                 <li>Add METRICS_TOKEN secret to your repo</li>
                 <li>The action generates an SVG on schedule</li>
@@ -941,9 +941,9 @@ jobs:
         metrics: '📉 GitHub Metrics',
       };
       return (
-        <div className="w-full p-6 rounded-lg border border-dashed border-[#30363d] bg-[#0a0a18] flex flex-col items-center justify-center text-center gap-2">
+        <div className="w-full p-6 rounded-lg border border-dashed border-[[var(--border-default)]] bg-[#0a0a18] flex flex-col items-center justify-center text-center gap-2">
           <p className="text-sm font-semibold text-white">{labels[id]}</p>
-          <p className="text-[10px] text-[#484f58]">Requires setup — see widget config for instructions</p>
+          <p className="text-[10px] text-[[var(--text-muted)]]">Requires setup — see widget config for instructions</p>
         </div>
       );
     }
@@ -989,16 +989,16 @@ jobs:
   // RENDER
   // ═══════════════════════════════════════════════════════════════════════
   return (
-    <div className="min-h-screen bg-[#080810] text-[#c9d1d9] font-inter">
+    <div className="min-h-screen bg-[[var(--bg-deep)]] text-[[var(--text-primary)]] font-inter">
       <div className="max-w-[1800px] mx-auto px-3 sm:px-4 lg:px-6 py-4 lg:py-8">
 
         {/* ─── Title ──────────────────────────────────────────────────── */}
         <div className="mb-6 lg:mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-1 h-6 lg:h-8 bg-[#ff5e1a] rounded-full" />
+            <div className="w-1 h-6 lg:h-8 bg-[[var(--accent-primary)]] rounded-full" />
             <h1 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">GitHub Profile Builder</h1>
           </div>
-          <p className="text-[#8b949e] text-base lg:text-lg">Build your perfect GitHub profile README with live preview</p>
+          <p className="text-[[var(--text-secondary)]] text-base lg:text-lg">Build your perfect GitHub profile README with live preview</p>
         </div>
 
         {/* ─── Tab bar: Builder | Templates ───────────────────────────── */}
@@ -1010,8 +1010,8 @@ jobs:
               className={cn(
                 "px-5 py-2.5 rounded-xl text-sm font-semibold transition-all",
                 activeTab === tab
-                  ? "bg-[#ff5e1a] text-white shadow-lg shadow-[#ff5e1a]/20"
-                  : "bg-[#0e0e1c] text-[#8b949e] hover:text-white border border-[rgba(255,255,255,0.07)]"
+                  ? "bg-[[var(--accent-primary)]] text-white shadow-lg shadow-[[var(--accent-primary)]]/20"
+                  : "bg-[#0e0e1c] text-[[var(--text-secondary)]] hover:text-white border border-[rgba(255,255,255,0.07)]"
               )}
             >
               {tab === 'builder' ? '🔧 Builder' : '📋 Templates'}
@@ -1024,23 +1024,23 @@ jobs:
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
               {PROFILE_TEMPLATES.map(t => (
-                <div key={t.id} className="bg-[#0e0e1c] border border-[rgba(255,255,255,0.07)] rounded-xl p-4 sm:p-5 hover:border-[#ff5e1a]/30 transition-all group">
+                <div key={t.id} className="bg-[#0e0e1c] border border-[rgba(255,255,255,0.07)] rounded-xl p-4 sm:p-5 hover:border-[[var(--accent-primary)]]/30 transition-all group">
                   <div className="flex items-center gap-2 mb-2">
-                    <Sparkles className="w-4 h-4 text-[#ff5e1a]" />
+                    <Sparkles className="w-4 h-4 text-[[var(--accent-primary)]]" />
                     <h3 className="font-bold text-white text-sm">{t.name}</h3>
                   </div>
-                  <p className="text-[11px] text-[#8b949e] mb-3 line-clamp-2">{t.description}</p>
+                  <p className="text-[11px] text-[[var(--text-secondary)]] mb-3 line-clamp-2">{t.description}</p>
                   <div className="flex flex-wrap gap-1.5 mb-4">
                     {t.tags.map(tag => (
-                      <span key={tag} className="px-2 py-0.5 bg-[#ff5e1a]/10 text-[#ff5e1a] rounded text-[9px] font-medium">{tag}</span>
+                      <span key={tag} className="px-2 py-0.5 bg-[[var(--accent-primary)]]/10 text-[[var(--accent-primary)]] rounded text-[9px] font-medium">{tag}</span>
                     ))}
                   </div>
-                  <div className="text-[10px] text-[#484f58] mb-3">
+                  <div className="text-[10px] text-[[var(--text-muted)]] mb-3">
                     {t.widgets.length} widgets: {t.widgets.join(', ')}
                   </div>
                   <button
                     onClick={() => loadTemplate(t)}
-                    className="w-full py-2 bg-[#ff5e1a]/10 hover:bg-[#ff5e1a] text-[#ff5e1a] hover:text-white rounded-lg text-xs font-semibold transition-all"
+                    className="w-full py-2 bg-[[var(--accent-primary)]]/10 hover:bg-[[var(--accent-primary)]] text-[[var(--accent-primary)]] hover:text-white rounded-lg text-xs font-semibold transition-all"
                   >
                     Use Template
                   </button>
@@ -1056,13 +1056,13 @@ jobs:
             {/* ─── Username Input ──────────────────────────────────────── */}
             <Card hover={false} className="mb-4 sm:mb-6 p-1 bg-[#0e0e1c] border-[rgba(255,255,255,0.07)] shadow-2xl">
               <div className="relative group">
-                <User className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8b949e] group-focus-within:text-[#ff5e1a] transition-colors" />
+                <User className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[[var(--text-secondary)]] group-focus-within:text-[[var(--accent-primary)]] transition-colors" />
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter your GitHub username..."
-                  className="w-full pl-12 sm:pl-14 pr-4 sm:pr-6 py-4 sm:py-5 bg-transparent text-lg sm:text-xl text-white placeholder:text-[#484f58] outline-none transition-all"
+                  className="w-full pl-12 sm:pl-14 pr-4 sm:pr-6 py-4 sm:py-5 bg-transparent text-lg sm:text-xl text-white placeholder:text-[[var(--text-muted)]] outline-none transition-all"
                 />
               </div>
             </Card>
@@ -1073,7 +1073,7 @@ jobs:
                 <button
                   key={t.id}
                   onClick={() => loadTemplate(t)}
-                  className="px-3 py-1.5 rounded-full bg-[#0e0e1c] border border-[rgba(255,255,255,0.07)] text-[11px] text-[#8b949e] hover:text-[#ff5e1a] hover:border-[#ff5e1a]/30 transition-all"
+                  className="px-3 py-1.5 rounded-full bg-[#0e0e1c] border border-[rgba(255,255,255,0.07)] text-[11px] text-[[var(--text-secondary)]] hover:text-[[var(--accent-primary)]] hover:border-[[var(--accent-primary)]]/30 transition-all"
                 >
                   {t.name}
                 </button>
@@ -1095,8 +1095,8 @@ jobs:
                       className={cn(
                         "px-2.5 py-1.5 rounded-lg text-[10px] font-semibold transition-all whitespace-nowrap",
                         sidebarCategory === cat.id
-                          ? "bg-[#ff5e1a] text-white"
-                          : "bg-[#0e0e1c] text-[#8b949e] hover:text-white border border-[rgba(255,255,255,0.07)]"
+                          ? "bg-[[var(--accent-primary)]] text-white"
+                          : "bg-[#0e0e1c] text-[[var(--text-secondary)]] hover:text-white border border-[rgba(255,255,255,0.07)]"
                       )}
                     >
                       {cat.label}
@@ -1115,12 +1115,12 @@ jobs:
                     )}
                   >
                     <div className="flex items-center gap-3">
-                      <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center", headerEnabled ? "bg-purple-600 text-white" : "bg-[#21262d] text-[#8b949e]")}>
+                      <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center", headerEnabled ? "bg-purple-600 text-white" : "bg-[[var(--bg-surface)]] text-[[var(--text-secondary)]]")}>
                         <Image className="w-4 h-4" />
                       </div>
                       <div>
                         <h3 className="font-semibold text-white text-sm">Profile Header</h3>
-                        <p className="text-[10px] text-[#8b949e]">Banner, greeting, socials</p>
+                        <p className="text-[10px] text-[[var(--text-secondary)]]">Banner, greeting, socials</p>
                       </div>
                     </div>
                     <Toggle checked={headerEnabled} onChange={setHeaderEnabled} />
@@ -1130,7 +1130,7 @@ jobs:
                     {activeWidget === 'header' && headerEnabled && (
                       <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                         <div className="p-4 mt-1 bg-[#121225] border border-[rgba(255,255,255,0.07)] rounded-xl space-y-4 max-h-[50vh] overflow-y-auto custom-scrollbar">
-                          <p className="text-[10px] text-[#ff5e1a] font-bold uppercase">Capsule Render Banner</p>
+                          <p className="text-[10px] text-[[var(--accent-primary)]] font-bold uppercase">Capsule Render Banner</p>
                           <Select label="Type" value={headerOptions.capsuleType} onChange={v => updateHeader('capsuleType', v)} options={CAPSULE_TYPES} />
                           <TextInput label="Color" value={headerOptions.capsuleColor} onChange={v => updateHeader('capsuleColor', v)} placeholder="gradient, auto, hex" />
                           <Slider label="Height" value={headerOptions.capsuleHeight} onChange={v => updateHeader('capsuleHeight', v)} min={100} max={300} />
@@ -1139,37 +1139,37 @@ jobs:
                           <TextInput label="Font color (hex)" value={headerOptions.capsuleFontColor} onChange={v => updateHeader('capsuleFontColor', v)} placeholder="ffffff" />
                           <Select label="Animation" value={headerOptions.capsuleAnimation} onChange={v => updateHeader('capsuleAnimation', v)} options={CAPSULE_ANIMATIONS} />
 
-                          <hr className="border-[#30363d]" />
-                          <p className="text-[10px] text-[#ff5e1a] font-bold uppercase">About Section</p>
+                          <hr className="border-[[var(--border-default)]]" />
+                          <p className="text-[10px] text-[[var(--accent-primary)]] font-bold uppercase">About Section</p>
                           <TextInput label="Greeting line" value={headerOptions.greeting} onChange={v => updateHeader('greeting', v)} placeholder="# Hi there 👋" />
                           <div className="space-y-1.5">
-                            <label className="text-xs font-medium text-[#8b949e]">About me (one bullet per line)</label>
+                            <label className="text-xs font-medium text-[[var(--text-secondary)]]">About me (one bullet per line)</label>
                             <textarea
                               value={headerOptions.aboutMe}
                               onChange={e => updateHeader('aboutMe', e.target.value)}
                               rows={3}
                               placeholder="Full Stack Developer&#10;Open source contributor&#10;Coffee lover"
-                              className="w-full bg-[#080810] border border-[#30363d] rounded-lg px-3 py-2 text-sm text-[#c9d1d9] outline-none focus:border-[#ff5e1a]/50 resize-none"
+                              className="w-full bg-[[var(--bg-deep)]] border border-[[var(--border-default)]] rounded-lg px-3 py-2 text-sm text-[[var(--text-primary)]] outline-none focus:border-[[var(--accent-primary)]]/50 resize-none"
                             />
                           </div>
 
-                          <hr className="border-[#30363d]" />
-                          <p className="text-[10px] text-[#ff5e1a] font-bold uppercase">Social Links</p>
+                          <hr className="border-[[var(--border-default)]]" />
+                          <p className="text-[10px] text-[[var(--accent-primary)]] font-bold uppercase">Social Links</p>
                           <TextInput label="LinkedIn username" value={headerOptions.socialLinkedin} onChange={v => updateHeader('socialLinkedin', v)} placeholder="johndoe" />
                           <TextInput label="Twitter/X handle" value={headerOptions.socialTwitter} onChange={v => updateHeader('socialTwitter', v)} placeholder="johndoe" />
                           <TextInput label="Email" value={headerOptions.socialEmail} onChange={v => updateHeader('socialEmail', v)} placeholder="you@mail.com" />
                           <TextInput label="Portfolio URL" value={headerOptions.socialPortfolio} onChange={v => updateHeader('socialPortfolio', v)} placeholder="https://yoursite.com" />
 
-                          <hr className="border-[#30363d]" />
-                          <p className="text-[10px] text-[#ff5e1a] font-bold uppercase">Quick Info</p>
+                          <hr className="border-[[var(--border-default)]]" />
+                          <p className="text-[10px] text-[[var(--accent-primary)]] font-bold uppercase">Quick Info</p>
                           <TextInput label="🔭 Working on" value={headerOptions.workingOn} onChange={v => updateHeader('workingOn', v)} placeholder="My awesome project" />
                           <TextInput label="🌱 Learning" value={headerOptions.learning} onChange={v => updateHeader('learning', v)} placeholder="Rust, GraphQL" />
                           <TextInput label="⚡ Fun fact" value={headerOptions.funFact} onChange={v => updateHeader('funFact', v)} placeholder="I love coffee" />
 
-                          <hr className="border-[#30363d]" />
+                          <hr className="border-[[var(--border-default)]]" />
                           <label className="flex items-center gap-2 cursor-pointer">
                             <Toggle size="sm" checked={headerOptions.footerEnabled} onChange={v => updateHeader('footerEnabled', v)} />
-                            <span className="text-xs text-[#8b949e]">Add footer banner</span>
+                            <span className="text-xs text-[[var(--text-secondary)]]">Add footer banner</span>
                           </label>
                         </div>
                       </motion.div>
@@ -1200,8 +1200,8 @@ jobs:
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-1">
                   {/* Highlighted Live Preview label - MORE PROMINENT */}
                   <div className="flex items-center gap-2.5">
-                    <div className="flex items-center gap-2 bg-gradient-to-r from-[#ff5e1a]/20 to-[#ff5e1a]/5 border-2 border-[#ff5e1a]/50 px-4 py-2 rounded-xl shadow-lg shadow-[#ff5e1a]/15">
-                      <Eye className="w-5 h-5 text-[#ff5e1a]" />
+                    <div className="flex items-center gap-2 bg-gradient-to-r from-[[var(--accent-primary)]]/20 to-[[var(--accent-primary)]]/5 border-2 border-[[var(--accent-primary)]]/50 px-4 py-2 rounded-xl shadow-lg shadow-[[var(--accent-primary)]]/15">
+                      <Eye className="w-5 h-5 text-[[var(--accent-primary)]]" />
                       <span className="text-base font-bold text-white tracking-wide">Live Preview</span>
                       <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f] animate-pulse shadow-[0_0_8px_rgba(39,201,63,0.6)]" title="Live" />
                     </div>
@@ -1216,43 +1216,43 @@ jobs:
                       <button
                         key={d.mode}
                         onClick={() => setDeviceMode(d.mode)}
-                        className={cn("p-1.5 rounded transition-all", deviceMode === d.mode ? "bg-[#ff5e1a] text-white" : "text-[#484f58] hover:text-[#8b949e]")}
+                        className={cn("p-1.5 rounded transition-all", deviceMode === d.mode ? "bg-[[var(--accent-primary)]] text-white" : "text-[[var(--text-muted)]] hover:text-[[var(--text-secondary)]]")}
                       >
                         {d.icon}
                       </button>
                     ))}
-                    <div className="w-px h-4 bg-[#30363d] mx-1" />
+                    <div className="w-px h-4 bg-[[var(--border-default)]] mx-1" />
                     {/* Zoom */}
-                    <button onClick={() => setZoom(Math.max(50, zoom - 25))} className="p-1 text-[#484f58] hover:text-white"><ZoomOut className="w-3.5 h-3.5" /></button>
-                    <span className="text-[10px] text-[#8b949e] w-8 text-center">{zoom}%</span>
-                    <button onClick={() => setZoom(Math.min(125, zoom + 25))} className="p-1 text-[#484f58] hover:text-white"><ZoomIn className="w-3.5 h-3.5" /></button>
-                    <div className="w-px h-4 bg-[#30363d] mx-1" />
-                    <button onClick={() => setRefreshKey(k => k + 1)} className="p-1.5 rounded text-[#484f58] hover:text-[#ff5e1a] transition-colors" title="Refresh all">
+                    <button onClick={() => setZoom(Math.max(50, zoom - 25))} className="p-1 text-[[var(--text-muted)]] hover:text-white"><ZoomOut className="w-3.5 h-3.5" /></button>
+                    <span className="text-[10px] text-[[var(--text-secondary)]] w-8 text-center">{zoom}%</span>
+                    <button onClick={() => setZoom(Math.min(125, zoom + 25))} className="p-1 text-[[var(--text-muted)]] hover:text-white"><ZoomIn className="w-3.5 h-3.5" /></button>
+                    <div className="w-px h-4 bg-[[var(--border-default)]] mx-1" />
+                    <button onClick={() => setRefreshKey(k => k + 1)} className="p-1.5 rounded text-[[var(--text-muted)]] hover:text-[[var(--accent-primary)]] transition-colors" title="Refresh all">
                       <RefreshCw className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
 
                 {/* GitHub-style frame — ENHANCED glowing focal point */}
-                <div className="rounded-2xl overflow-hidden border-2 border-[#ff5e1a]/40 shadow-[0_0_0_1px_rgba(255,94,26,0.2),0_0_80px_rgba(255,94,26,0.2),0_0_120px_rgba(255,94,26,0.1),0_25px_80px_rgba(0,0,0,0.6)] ring-2 ring-[#ff5e1a]/20 bg-[#0d1117] relative flex flex-col h-full">
+                <div className="rounded-2xl overflow-hidden border-2 border-[[var(--accent-primary)]]/40 shadow-[0_0_0_1px_rgba(255,94,26,0.2),0_0_80px_rgba(255,94,26,0.2),0_0_120px_rgba(255,94,26,0.1),0_25px_80px_rgba(0,0,0,0.6)] ring-2 ring-[[var(--accent-primary)]]/20 bg-[[var(--bg-primary)]] relative flex flex-col h-full">
                   {/* Corner accent highlights */}
-                  <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-[#ff5e1a]/30 to-transparent rounded-bl-2xl pointer-events-none" />
-                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-[#ff5e1a]/30 to-transparent rounded-br-2xl pointer-events-none" />
+                  <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-[[var(--accent-primary)]]/30 to-transparent rounded-bl-2xl pointer-events-none" />
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-[[var(--accent-primary)]]/30 to-transparent rounded-br-2xl pointer-events-none" />
                   {/* Browser chrome - fills width, shrinks to fit content */}
-                  <div className="bg-[#161b22] px-4 py-2.5 flex items-center gap-3 border-b border-[#ff5e1a]/15 shrink-0">
+                  <div className="bg-[[var(--bg-surface)]] px-4 py-2.5 flex items-center gap-3 border-b border-[[var(--accent-primary)]]/15 shrink-0">
                     <div className="flex gap-1.5">
                       <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
                       <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
                       <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
                     </div>
-                    <div className="flex-1 bg-[#0d1117] border border-[rgba(255,94,26,0.12)] rounded-md px-3 py-1 text-[11px] text-[#8b949e] font-mono truncate">
+                    <div className="flex-1 bg-[[var(--bg-primary)]] border border-[rgba(255,94,26,0.12)] rounded-md px-3 py-1 text-[11px] text-[[var(--text-secondary)]] font-mono truncate">
                       github.com/{user}
                     </div>
                   </div>
 
                   {/* Preview content - flex-1 to fill remaining space, handles overflow */}
                   <div
-                    className="flex-1 bg-[#0d1117] p-4 sm:p-6 overflow-auto custom-scrollbar"
+                    className="flex-1 bg-[[var(--bg-primary)]] p-4 sm:p-6 overflow-auto custom-scrollbar"
                     style={{ maxHeight: 'calc(100vh - 200px)' }}
                   >
                     <div
@@ -1266,11 +1266,11 @@ jobs:
                     >
                       {!username ? (
                         <div className="flex flex-col items-center justify-center h-full text-center mt-20">
-                          <div className="w-16 h-16 rounded-full bg-[#161b22] flex items-center justify-center mb-4">
-                            <MousePointer2 className="w-8 h-8 text-[#484f58] animate-bounce" />
+                          <div className="w-16 h-16 rounded-full bg-[[var(--bg-surface)]] flex items-center justify-center mb-4">
+                            <MousePointer2 className="w-8 h-8 text-[[var(--text-muted)]] animate-bounce" />
                           </div>
                           <h3 className="text-white font-semibold mb-1">Waiting for username</h3>
-                          <p className="text-[#8b949e] text-sm max-w-[200px]">Enter your GitHub username to see the magic happen.</p>
+                          <p className="text-[[var(--text-secondary)]] text-sm max-w-[200px]">Enter your GitHub username to see the magic happen.</p>
                         </div>
                       ) : (
                         <>
@@ -1288,7 +1288,7 @@ jobs:
                                 <p className="text-white text-2xl font-bold text-center">{headerOptions.greeting.replace(/^#+\s*/, '')}</p>
                               )}
                               {headerOptions.aboutMe && (
-                                <div className="text-sm text-[#8b949e] text-center">
+                                <div className="text-sm text-[[var(--text-secondary)]] text-center">
                                   {headerOptions.aboutMe.split('\n').filter(Boolean).map((l, i) => (
                                     <p key={i}>• {l}</p>
                                   ))}
@@ -1303,7 +1303,7 @@ jobs:
                                 </div>
                               )}
                               {(headerOptions.workingOn || headerOptions.learning || headerOptions.funFact) && (
-                                <div className="text-sm text-[#8b949e] space-y-1">
+                                <div className="text-sm text-[[var(--text-secondary)]] space-y-1">
                                   {headerOptions.workingOn && <p>🔭 I'm currently working on <strong className="text-white">{headerOptions.workingOn}</strong></p>}
                                   {headerOptions.learning && <p>🌱 I'm currently learning <strong className="text-white">{headerOptions.learning}</strong></p>}
                                   {headerOptions.funFact && <p>⚡ Fun fact: <strong className="text-white">{headerOptions.funFact}</strong></p>}
@@ -1335,7 +1335,7 @@ jobs:
 
                           {/* No widgets message */}
                           {WIDGET_DEFS.filter(w => widgetStates[w.id]?.enabled).length === 0 && !headerEnabled && (
-                            <div className="text-center py-20 text-[#484f58]">
+                            <div className="text-center py-20 text-[[var(--text-muted)]]">
                               <p>No widgets enabled. Toggle widgets on the left panel.</p>
                             </div>
                           )}
@@ -1355,7 +1355,7 @@ jobs:
                       <button
                         key={a}
                         onClick={() => setAlignment(a)}
-                        className={cn("px-2 py-1 rounded text-[10px] font-medium transition-all", alignment === a ? "bg-[#ff5e1a] text-white" : "text-[#484f58] hover:text-[#8b949e]")}
+                        className={cn("px-2 py-1 rounded text-[10px] font-medium transition-all", alignment === a ? "bg-[[var(--accent-primary)]] text-white" : "text-[[var(--text-muted)]] hover:text-[[var(--text-secondary)]]")}
                       >
                         {a.charAt(0).toUpperCase() + a.slice(1)}
                       </button>
@@ -1365,14 +1365,14 @@ jobs:
 
                 <Card hover={false} className="bg-[#0e0e1c] border-[rgba(255,255,255,0.07)] p-0 overflow-hidden flex flex-col" style={{ minHeight: '500px', maxHeight: 'calc(85vh - 100px)' }}>
                   {/* Code window chrome */}
-                  <div className="p-3 bg-[#161b22]/50 border-b border-[rgba(255,255,255,0.07)] flex items-center justify-between shrink-0">
+                  <div className="p-3 bg-[[var(--bg-surface)]]/50 border-b border-[rgba(255,255,255,0.07)] flex items-center justify-between shrink-0">
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
                       <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
                       <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
-                      <span className="text-[10px] text-[#484f58] ml-2 font-mono">README.md</span>
+                      <span className="text-[10px] text-[[var(--text-muted)]] ml-2 font-mono">README.md</span>
                     </div>
-                    <div className="flex items-center gap-1 text-[10px] text-[#484f58]">
+                    <div className="flex items-center gap-1 text-[10px] text-[[var(--text-muted)]]">
                       <span>{charCount} chars</span>
                       <span>·</span>
                       <span>{sizeKB} KB</span>
@@ -1383,11 +1383,11 @@ jobs:
                   <textarea
                     readOnly
                     value={generatedMarkdown}
-                    className="flex-1 bg-transparent p-5 font-mono text-xs text-[#8b949e] resize-none outline-none leading-relaxed custom-scrollbar"
+                    className="flex-1 bg-transparent p-5 font-mono text-xs text-[[var(--text-secondary)]] resize-none outline-none leading-relaxed custom-scrollbar"
                   />
 
                   {/* Actions */}
-                  <div className="p-3 bg-[#161b22]/30 border-t border-[rgba(255,255,255,0.07)] space-y-2 shrink-0">
+                  <div className="p-3 bg-[[var(--bg-surface)]]/30 border-t border-[rgba(255,255,255,0.07)] space-y-2 shrink-0">
                     {/* Copy button */}
                     <button
                       onClick={handleCopy}
@@ -1395,7 +1395,7 @@ jobs:
                         "w-full py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-2",
                         copied
                           ? "bg-[#27c93f]/20 text-[#27c93f] border border-[#27c93f]/30"
-                          : "bg-[#ff5e1a] text-white hover:bg-[#ff4500] shadow-lg shadow-[#ff5e1a]/20"
+                          : "bg-[[var(--accent-primary)]] text-white hover:bg-[#ff4500] shadow-lg shadow-[[var(--accent-primary)]]/20"
                       )}
                     >
                       {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
@@ -1406,7 +1406,7 @@ jobs:
                     <div className="flex gap-2">
                       <button
                         onClick={handleDownload}
-                        className="flex-1 py-2 rounded-lg text-xs font-medium bg-[#21262d] text-[#c9d1d9] hover:bg-[#30363d] transition-colors flex items-center justify-center gap-1.5"
+                        className="flex-1 py-2 rounded-lg text-xs font-medium bg-[[var(--bg-surface)]] text-[[var(--text-primary)]] hover:bg-[[var(--border-default)]] transition-colors flex items-center justify-center gap-1.5"
                       >
                         <Download className="w-3.5 h-3.5" />
                         Download .md
@@ -1416,7 +1416,7 @@ jobs:
                           href={`https://github.com/${username}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 py-2 rounded-lg text-xs font-medium bg-[#21262d] text-[#c9d1d9] hover:bg-[#30363d] transition-colors flex items-center justify-center gap-1.5"
+                          className="flex-1 py-2 rounded-lg text-xs font-medium bg-[[var(--bg-surface)]] text-[[var(--text-primary)]] hover:bg-[[var(--border-default)]] transition-colors flex items-center justify-center gap-1.5"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                           Open Profile
@@ -1426,8 +1426,8 @@ jobs:
 
                     {/* Info */}
                     <div className="flex items-start gap-2 pt-1">
-                      <Info className="w-3.5 h-3.5 text-[#ff5e1a] mt-0.5 shrink-0" />
-                      <p className="text-[10px] text-[#8b949e]">
+                      <Info className="w-3.5 h-3.5 text-[[var(--accent-primary)]] mt-0.5 shrink-0" />
+                      <p className="text-[10px] text-[[var(--text-secondary)]]">
                         Paste this markdown into your GitHub Profile README.md file to display your stats.
                       </p>
                     </div>

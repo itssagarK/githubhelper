@@ -179,7 +179,7 @@ import {
   };
 
   return (
-    <div className="min-h-screen bg-[#0d1117] text-zinc-100 font-sans selection:bg-orange-500/30">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans selection:bg-[var(--accent-subtle)]">
       <Header view={view} setView={setView} />
 
       <main className="max-w-7xl mx-auto px-4 py-6 md:py-8 min-h-[calc(100vh-8rem)]">
