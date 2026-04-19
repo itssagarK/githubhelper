@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ChevronRight, Sparkles, Book, Award, Play, Smile, Terminal, Shield, FileText, GitPullRequest, AlertCircle, Github } from 'lucide-react';
+import { ChevronRight, Sparkles, Book, Award, Play, Smile, Terminal, Shield, FileText, GitPullRequest, AlertCircle, Github, Layout } from 'lucide-react';
 import { Feature } from '../lib/types';
 import Card from '../components/ui/Card';
 
@@ -12,7 +12,7 @@ const getIcon = (iconName: string) => {
   const icons: Record<string, React.ComponentType<{ className?: string }>> = {
     'file-text': FileText, 'git-pull-request': GitPullRequest, 'alert-circle': AlertCircle,
     'sparkles': Sparkles, 'book-open': Book, 'award': Award, 'play': Play, 'smile': Smile,
-    'terminal': Terminal, 'shield': Shield
+    'terminal': Terminal, 'shield': Shield, 'layout': Layout
   };
   const Icon = icons[iconName] || FileText;
   return <Icon className="w-5 h-5" />;

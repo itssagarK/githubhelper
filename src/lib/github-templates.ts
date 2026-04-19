@@ -49,6 +49,13 @@ export const addons: Addon[] = [
 
 export const features: Feature[] = [
   {
+    id: 'profile-builder',
+    name: 'Profile Builder',
+    description: 'Build your perfect GitHub profile README with live widgets',
+    icon: 'layout',
+    category: 'generator',
+  },
+  {
     id: 'markdown',
     name: 'Markdown Converter',
     description: 'Transform messy thoughts into clean, structured Markdown',

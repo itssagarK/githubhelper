@@ -1,5 +1,5 @@
 export type ConversionType = 'README' | 'PR' | 'ISSUE' | 'COMMENT' | 'RELEASE' | 'GENERAL';
-export type AppView = 'home' | 'markdown' | 'badges' | 'workflows' | 'gitmojis' | 'commands' | 'license' | 'emojis' | 'readme' | 'pr' | 'issue';
+export type AppView = 'home' | 'markdown' | 'badges' | 'workflows' | 'gitmojis' | 'commands' | 'license' | 'emojis' | 'readme' | 'pr' | 'issue' | 'profile-builder';
 
 
 export interface Feature {

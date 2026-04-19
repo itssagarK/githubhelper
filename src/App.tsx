@@ -13,6 +13,7 @@ import TemplatesPage from './pages/Templates';
 import WorkflowsPage from './pages/Workflows';
 import GitmojisPage from './pages/Gitmojis';
 import EmojisPage from './pages/Emojis';
+import ProfileBuilder from './pages/ProfileBuilder';
 import {
   features, gitCommands, licenses, badges, gitmojis, emojis, addons,
   workflowTemplates, readmeTemplates, prTemplates, issueTemplates
@@ -158,6 +159,12 @@ import {
               { name: 'Feature Request', description: 'Template for feature requests', content: issueTemplates.feature },
             ]}
             handleCopy={handleCopy} setOutput={setOutput} setView={setView}
+          />
+        );
+      case 'profile-builder':
+        return (
+          <ProfileBuilder
+            addons={addons}
           />
         );
       default:
