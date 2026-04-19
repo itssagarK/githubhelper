@@ -10,11 +10,11 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', isLoading, children, disabled, ...props }, ref) => {
     const variants = {
-      primary: 'bg-[#238636] hover:bg-[#2ea043] text-white border border-[rgba(240,246,252,0.1)] shadow-sm',
-      secondary: 'bg-[#21262d] hover:bg-[#30363d] text-[#c9d1d9] border border-[#30363d]',
-      ghost: 'bg-transparent hover:bg-[#30363d] text-[#8b949e] hover:text-[#c9d1d9]',
-      outline: 'bg-transparent border border-[#30363d] hover:border-[#8b949e] text-[#c9d1d9]',
-      danger: 'bg-transparent border border-[#30363d] hover:bg-[#da3633] hover:border-[#f85149] text-[#f85149] hover:text-white',
+      primary: 'bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-white border border-[rgba(240,246,252,0.1)] shadow-sm',
+      secondary: 'bg-[var(--bg-surface)] hover:bg-[var(--border-default)] text-[var(--text-primary)] border border-[var(--border-default)]',
+      ghost: 'bg-transparent hover:bg-[var(--border-default)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]',
+      outline: 'bg-transparent border border-[var(--border-default)] hover:border-[var(--text-secondary)] text-[var(--text-primary)]',
+      danger: 'bg-transparent border border-[var(--border-default)] hover:bg-[#da3633] hover:border-[#f85149] text-[#f85149] hover:text-white',
     };
 
     const sizes = {
